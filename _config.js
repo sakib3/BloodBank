@@ -7,6 +7,6 @@ config.mongoURI = {
 
 config.serverPORT = {
   development: '3000',
-  test: '3000'
+  test: '3001'
 };
 module.exports = config;
