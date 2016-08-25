@@ -3,15 +3,15 @@ app = express(),
 bodyParser = require('body-parser'),
 passport = require('passport'),
 session = require('express-session'),
-config = require('./_config');
+config = require('./_config'),
+router = require('./routes');
 
 app.use(bodyParser.json());
 
 app.use(passport.initialize());
 app.use(passport.session(false));
-app.use("/",function(req,res){
-	res.status(200).send({ message: 'Success' });
-});
+app.use("/",router);
+
 app.use("*",function(req,res){
 	res.status(400).send({ error: 'Not found' });
 });
