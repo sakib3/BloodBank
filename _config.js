@@ -10,4 +10,8 @@ config.serverPORT = {
   test: '3001'
 };
 
+config.dropDBOnStartUp = {
+	test: true
+}
+
 module.exports = config;

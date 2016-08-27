@@ -8,14 +8,20 @@ var express = require('express'),
 
 // connect to Mongoose
 mongoose.connect(config.mongoURI[process.env.NODE_ENV], function(err, res) {
-  if(err) {
+  if(err){
     console.log('Error connecting to the database. ' + err);
-  } else {
+  } 
+  else {
     console.log('Connected to Database: ' + config.mongoURI[process.env.NODE_ENV]);
+    var dropDBOnStartUp = false || config.dropDBOnStartUp[process.env.NODE_ENV];
+	if(dropDBOnStartUp){
+    	var dropDB = mongoose.connection.db.dropDatabase();
+    	dropDB ? console.log('Database dropped') : console.log('Error: Database can not be dropped');
+	}
   }
 });
 
-var db = mongoose.connection;
+//var db = mongoose.connection;
 
 router.get('/', function(req, res){
 	res.status(200).send({ message: 'Success' });
