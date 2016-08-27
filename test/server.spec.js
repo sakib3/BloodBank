@@ -23,7 +23,11 @@ var date = moment(),
     maritalStatus="Single",
     physicalCondition="Good",
     dateOfBirth= dateOfBirth,
-    location="Unknown",
+    currentLocation=[
+      23.600800037384033,
+      46.76758746952729
+    ],
+    currentLocationUpdateTimeStamp=now,
     bloodGroup="A+";
 
 var newPerson={
@@ -32,7 +36,8 @@ var newPerson={
           passportNumber:passportNumber,votarId:votarId,gender:gender,
           occupation:occupation,maritalStatus:maritalStatus,
           physicalCondition:physicalCondition,dateOfBirth: dateOfBirth,
-          location:location,bloodGroup:bloodGroup
+          currentLocation:currentLocation,
+          currentLocationUpdateTimeStamp:currentLocationUpdateTimeStamp,bloodGroup:bloodGroup
 }
 
 describe('BloodBank-backend rest api server', function(){
@@ -53,6 +58,36 @@ describe('BloodBank-backend rest api server', function(){
       .end(function(err, res){
         expect(res.body.name).to.eql(newPerson.name)
         expect(res.status).to.eql(200)
+        done()
+      })
+  })
+
+   it('should not create a person when required fields not found', function(done){
+    anotherPerson={
+                    occupation:newPerson.occupation,
+                    maritalStatus:newPerson.maritalStatus,
+                    physicalCondition:newPerson.physicalCondition,
+                    currentLocation:newPerson.currentLocation,
+                    currentLocationUpdateTimeStamp:newPerson.currentLocationUpdateTimeStamp
+
+    }
+    superagent
+      .post(server_url+'/api/person')
+      .send(anotherPerson)
+      .end(function(err, res){
+        expect(res.body.message).to.eql('Person validation failed')
+        expect(res.body.errors).to.include.keys('name');
+        expect(res.body.errors).to.include.keys('email');
+        expect(res.body.errors).to.include.keys('dateOfBirth');
+        expect(res.body.errors).to.include.keys('phone');
+        expect(res.body.errors).to.include.keys('password');
+        expect(res.body.errors).to.include.keys('address');
+        expect(res.body.errors).to.include.keys('country');
+        expect(res.body.errors).to.include.keys('nationality');
+        expect(res.body.errors).to.include.keys('passportNumber');
+        expect(res.body.errors).to.include.keys('votarId');
+        expect(res.body.errors).to.include.keys('gender');
+        expect(res.body.errors).to.include.keys('bloodGroup');
         done()
       })
   })

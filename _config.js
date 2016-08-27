@@ -1,7 +1,7 @@
 var config = {};
 
 config.mongoURI = {
-  development: 'mongodb://localhost/bloodbank',
+  development: 'mongodb://localhost/bloodbank-test',
   test: 'mongodb://localhost/bloodbank-test'
 };
 

@@ -1,22 +1,30 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	personSchema = Schema({
-		name:String,
-		email:String,
-		phone:Number,
-		password:String,
-		address:String,
-		country:String,
-		nationality:String,
-		passportNumber:String,
-		votarId:String,
-		gender:String,
+		name:{type:String, required:true},
+		email:{type:String, required:true},
+		phone:{type:Number, required:true},
+		password:{type:String, required:true},
+		address:{type:String, required:true},
+		country:{type:String, required:true},
+		nationality:{type:String, required:true},
+		passportNumber:{type:String, required:true},
+		votarId:{type:String, required:true},
+		gender:{type:String, required:true},
 		occupation:String,
 		maritalStatus:String,
 		physicalCondition:String,
-		dateOfBirth:Date,
-		location:String,
-		bloodGroup:String,
+		dateOfBirth:{type:Date, required:true},
+		currentLocation: {
+					type: [Number],  // [<longitude>, <latitude>]
+    				index: '2d' // create the geospatial index
+    	},
+    	currentLocationUpdateTimeStamp:Date,
+		bloodGroup:{
+					type:String,
+					enum: ['A+','A-','B+','B-','O+','O-','AB+','AB-'],
+					required: true
+		},
 		registrationDate:{ type: Date, default: Date.now }
 	});
 
