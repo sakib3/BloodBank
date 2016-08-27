@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
 		phone:Number,
 		password:String,
 		address:String,
+		country:String,
+		nationality:String,
 		passportNumber:String,
 		votarId:String,
 		gender:String,
@@ -18,6 +20,7 @@ var mongoose = require('mongoose'),
 		registrationDate:{ type: Date, default: Date.now }
 	});
 
+//Before saving Employee perform additional task like hash password
 personSchema.pre('save', function(next) {
     var person = this;
     return next();
