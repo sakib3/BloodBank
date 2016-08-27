@@ -36,4 +36,14 @@ router.post('/api/person', function(req, res){
 		res.json(data);
 	});
 });
+
+router.get('/api/person/:id', function(req, res){
+	Person.getPersonById(req.params.id, function(err, data){
+		if(err){
+			res.json(err);
+		}
+		res.json(data);
+	});
+});
+
 module.exports = router;

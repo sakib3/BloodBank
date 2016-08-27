@@ -56,6 +56,7 @@ describe('BloodBank-backend rest api server', function(){
       .post(server_url+'/api/person')
       .send(newPerson)
       .end(function(err, res){
+        newPerson.id=res.body._id
         expect(res.body.name).to.eql(newPerson.name)
         expect(res.status).to.eql(200)
         done()
@@ -88,6 +89,16 @@ describe('BloodBank-backend rest api server', function(){
         expect(res.body.errors).to.include.keys('votarId');
         expect(res.body.errors).to.include.keys('gender');
         expect(res.body.errors).to.include.keys('bloodGroup');
+        done()
+      })
+  })
+
+  it('should get a person by person_id', function(done){
+    superagent
+      .get(server_url+'/api/person/'+newPerson.id)
+      .end(function(err, res){
+        expect(res.body.name).to.eql(newPerson.name)
+        expect(res.status).to.eql(200)
         done()
       })
   })

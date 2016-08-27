@@ -35,8 +35,9 @@ personSchema.pre('save', function(next) {
 });
 
 var Person = module.exports = mongoose.model('Person', personSchema, 'person');
-module.exports.getPersons = function(callback,limit){
-	Person.Find(callback).limit(limit);
+module.exports.getPersonById = function(id,callback){
+	Person.findById(id)
+		.exec(callback);
 }
 module.exports.addPerson = function(person,callback){
 	Person.create(person,callback);
