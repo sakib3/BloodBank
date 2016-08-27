@@ -15,4 +15,18 @@ describe('BloodBank-backend rest api server', function(){
         done()
       });
   })
+
+  it('should create a person', function(done){
+    superagent
+      .post(server_url+'/api/person')
+      .send({
+          email: 'sakib3@gmail.com',
+          password: '123456'
+      })
+      .end(function(e, res){
+        expect(e).to.eql(null)
+        expect(res.status).to.eql(200)
+        done()
+      })
+  })
 })

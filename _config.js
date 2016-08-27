@@ -2,11 +2,12 @@ var config = {};
 
 config.mongoURI = {
   development: 'mongodb://localhost/bloodbank',
-  test: 'mongodb://localhost/bloodbankTest'
+  test: 'mongodb://localhost/bloodbank-test'
 };
 
 config.serverPORT = {
   development: '3000',
   test: '3001'
 };
+
 module.exports = config;
