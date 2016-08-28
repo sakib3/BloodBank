@@ -47,8 +47,8 @@ router.get('/api/person/:id', function(req, res){
 });
 
 router.post('/api/person/:id', function(req, res){
-	console.log(req.body);
-	Person.getPersonById(req.params.id, function(err, data){
+	var updateField = req.body;
+	Person.updatePersonById(req.params.id, updateField,function(err, data){
 		if(err){
 			res.json(err);
 		}

@@ -126,4 +126,16 @@ describe('BloodBank-backend rest api server', function(){
       })
   })
 
+  it('should update a person by person_id', function(done){
+    superagent
+      .post(server_url+'/api/person/'+newPerson.id)
+      .send({name:'Another Name',address:'Another address'})
+      .end(function(err, res){
+        expect(res.body.name).to.eql('Another Name')
+        expect(res.body.address).to.eql('Another address')
+        expect(res.status).to.eql(200)
+        done()
+      })
+  })
+
 })

@@ -66,6 +66,13 @@ module.exports.getUserByUsername = function(userName,callback){
 	Person.findOne(query,callback);
 }
 
+module.exports.updatePersonById = function(id,updateField,callback){
+	Person.findByIdAndUpdate(id, { $set: updateField}, {new: true}, function (err, data) {
+	  if (err) return handleError(err);
+	  return callback(null,data);
+	});
+	//Person.findById(id).exec(callback);
+}
 // module.exports.comparePassword = function(candidatePassword, hash, callback){
 // 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
 // 		console.log(candidatePassword, hash,err,isMatch);

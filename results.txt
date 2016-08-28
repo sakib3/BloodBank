@@ -1,12 +1,13 @@
 
 [0m[0m
 [0m  BloodBank-backend rest api server[0m
-[2K[0G  [32m  ✓[0m[90m should get response 200[0m
-[2K[0G  [32m  ✓[0m[90m should create a person[0m[31m (341ms)[0m
+[2K[0G  [32m  ✓[0m[90m should get response 200[0m[33m (66ms)[0m
+[2K[0G  [32m  ✓[0m[90m should create a person[0m[31m (371ms)[0m
 [2K[0G  [32m  ✓[0m[90m should not create a person when required fields not found[0m
 [2K[0G  [32m  ✓[0m[90m should get a person by person_id[0m
-[2K[0G  [32m  ✓[0m[90m should store a person password in hash[0m[31m (259ms)[0m
+[2K[0G  [32m  ✓[0m[90m should store a person password in hash[0m[31m (251ms)[0m
+[2K[0G  [32m  ✓[0m[90m should update a person by person_id[0m
 
 
-[92m [0m[32m 5 passing[0m[90m (678ms)[0m
+[92m [0m[32m 6 passing[0m[90m (753ms)[0m
 
