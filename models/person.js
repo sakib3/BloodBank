@@ -1,4 +1,6 @@
 var mongoose = require('mongoose'),
+	bcrypt = require('bcrypt-nodejs'),
+	SALT_WORK_FACTOR = 10,
 	Schema = mongoose.Schema,
 	personSchema = Schema({
 		name:{type:String, required:true},
@@ -31,14 +33,43 @@ var mongoose = require('mongoose'),
 //Before saving Employee perform additional task like hash password
 personSchema.pre('save', function(next) {
     var person = this;
-    return next();
+    // only hash the password if it has been modified (or is new)
+    if (!person.isModified('password')) return next();
+
+    // generate a salt
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if (err) return next(err);
+
+        // hash the password using our new salt
+        bcrypt.hash(person.password, salt, null, function(err, hash) {
+            if (err) return next(err);
+
+            // override the cleartext password with the hashed one
+            person.password = hash;
+            next();
+        });
+    });
+
+    
 });
 
 var Person = module.exports = mongoose.model('Person', personSchema, 'person');
 module.exports.getPersonById = function(id,callback){
-	Person.findById(id)
-		.exec(callback);
+	Person.findById(id).exec(callback);
 }
 module.exports.addPerson = function(person,callback){
 	Person.create(person,callback);
 }
+
+module.exports.getUserByUsername = function(userName,callback){
+	var query = {email:userName}
+	Person.findOne(query,callback);
+}
+
+// module.exports.comparePassword = function(candidatePassword, hash, callback){
+// 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+// 		console.log(candidatePassword, hash,err,isMatch);
+//     	if(err) throw err;
+//     	callback(null, isMatch);
+// 	});
+// }

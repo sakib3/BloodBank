@@ -1,7 +1,7 @@
 var express = require('express'),
 	router = express.Router(),
 	mongoose = require('mongoose'),
-	
+	passport = require('./middlewares/passport'),
 	//passport = require('./middlewares/passport');
 	config = require('./_config');
 	Person = require('./models/person');
@@ -46,4 +46,26 @@ router.get('/api/person/:id', function(req, res){
 	});
 });
 
+router.post('/api/person/:id', function(req, res){
+	console.log(req.body);
+	Person.getPersonById(req.params.id, function(err, data){
+		if(err){
+			res.json(err);
+		}
+		res.json(data);
+	});
+});
+
+// function passportAuthenticateUser(req, res){
+// 	passport.authenticate('local', function(err, user, info) {
+// 		if (err) { return next(err); }
+// 		console.log(user);
+// 		return;
+// 		if (!user) {
+// 			res.status(403);
+// 			return res.send({message: info.message});
+// 		}
+		
+// 	})(req, res);
+// }
 module.exports = router;

@@ -1,7 +1,9 @@
 
 var superagent = require('superagent'),
   expect = require('expect.js'),
-  config = require('../_config');
+  config = require('../_config'),
+  bcrypt = require('bcrypt-nodejs'),
+  SALT_WORK_FACTOR = 10,
   port = config.serverPORT[process.env.NODE_ENV],
   server_url = 'http://localhost:'+port,
   moment = require('moment');
@@ -38,6 +40,17 @@ var newPerson={
           physicalCondition:physicalCondition,dateOfBirth: dateOfBirth,
           currentLocation:currentLocation,
           currentLocationUpdateTimeStamp:currentLocationUpdateTimeStamp,bloodGroup:bloodGroup
+}
+
+function hashPassword(password){
+    var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+    var hash = bcrypt.hashSync(password, salt);
+    return hash;
+    
+}
+
+function comparePassword(password,passwordHashed){
+  return bcrypt.compareSync(password,passwordHashed);
 }
 
 describe('BloodBank-backend rest api server', function(){
@@ -102,4 +115,15 @@ describe('BloodBank-backend rest api server', function(){
         done()
       })
   })
+
+  it('should store a person password in hash', function(done){
+    superagent
+      .get(server_url+'/api/person/'+newPerson.id)
+      .end(function(err, res){
+        expect(comparePassword(newPerson.password,res.body.password)).to.eql(true)
+        expect(res.status).to.eql(200)
+        done()
+      })
+  })
+
 })
