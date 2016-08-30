@@ -26,8 +26,8 @@ var date = moment(),
     physicalCondition="Good",
     dateOfBirth= dateOfBirth,
     currentLocation=[
-      23.600800037384033,
-      46.76758746952729
+      38.897147,
+      -77.043934
     ],
     currentLocationUpdateTimeStamp=now,
     bloodGroup="A+";
@@ -108,7 +108,7 @@ describe('BloodBank-backend rest api server', function(){
 
   it('should get a person by person_id', function(done){
     superagent
-      .get(server_url+'/api/person/'+newPerson.id)
+      .get(server_url+'/api/person/id/'+newPerson.id)
       .end(function(err, res){
         expect(res.body.name).to.eql(newPerson.name)
         expect(res.status).to.eql(200)
@@ -118,7 +118,7 @@ describe('BloodBank-backend rest api server', function(){
 
   it('should store a person password in hash', function(done){
     superagent
-      .get(server_url+'/api/person/'+newPerson.id)
+      .get(server_url+'/api/person/id/'+newPerson.id)
       .end(function(err, res){
         expect(comparePassword(newPerson.password,res.body.password)).to.eql(true)
         expect(res.status).to.eql(200)
@@ -126,9 +126,33 @@ describe('BloodBank-backend rest api server', function(){
       })
   })
 
+  it('should search person by bloodGroup', function(done){
+    superagent
+      .get(server_url+'/api/person/bloodGroup/'+newPerson.bloodGroup)
+      .end(function(err, res){
+        expect(res.body[0].name).to.eql('John Doe')
+        expect(res.status).to.eql(200)
+        done()
+      })
+  })
+
+  it('should search person by current location and maximum distance', function(done){
+    var lat=20.6
+    var long=-77.043934
+    var maxDistance=2035.189//km
+    
+    superagent
+      .get(server_url+'/api/person/currentLocation?'+'maxDistance='+maxDistance+'&lat='+lat+'&long='+long)
+      .end(function(err, res){
+        expect(res.body[0].name).to.eql('John Doe')
+        expect(res.status).to.eql(200)
+        done()
+      })
+  })
+
   it('should update a person by person_id', function(done){
     superagent
-      .post(server_url+'/api/person/'+newPerson.id)
+      .post(server_url+'/api/person/id/'+newPerson.id)
       .send({name:'Another Name',address:'Another address'})
       .end(function(err, res){
         expect(res.body.name).to.eql('Another Name')
@@ -137,5 +161,6 @@ describe('BloodBank-backend rest api server', function(){
         done()
       })
   })
+
 
 })

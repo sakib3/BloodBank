@@ -37,7 +37,7 @@ router.post('/api/person', function(req, res){
 	});
 });
 
-router.get('/api/person/:id', function(req, res){
+router.get('/api/person/id/:id', function(req, res){
 	Person.getPersonById(req.params.id, function(err, data){
 		if(err){
 			res.json(err);
@@ -46,7 +46,37 @@ router.get('/api/person/:id', function(req, res){
 	});
 });
 
-router.post('/api/person/:id', function(req, res){
+router.get('/api/person/bloodGroup/:bloodGroup', function(req, res){
+	var query = {bloodGroup : req.params.bloodGroup};
+	Person.getPersonByQuery(query, function(err, data){
+		if(err){
+			res.json(err);
+		}
+		res.json(data);
+	});
+});
+
+router.get('/api/person/currentLocation', function(req, res){
+	var maxDistance = req.query.maxDistance;
+	maxDistance/=100
+	var lat = req.query.lat;
+	var long = req.query.long;
+	var query = {
+					currentLocation : {	
+						$geoWithin: { 
+							$center: [	[lat,long], maxDistance ] 
+						} 
+					}			 
+	};
+	Person.getPersonByQuery(query, function(err, data){
+		if(err){
+			res.json(err);
+		}
+		res.json(data);
+	});
+});
+
+router.post('/api/person/id/:id', function(req, res){
 	var updateField = req.body;
 	Person.updatePersonById(req.params.id, updateField,function(err, data){
 		if(err){

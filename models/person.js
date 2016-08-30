@@ -57,6 +57,11 @@ var Person = module.exports = mongoose.model('Person', personSchema, 'person');
 module.exports.getPersonById = function(id,callback){
 	Person.findById(id).exec(callback);
 }
+module.exports.getPersonByQuery = function(query,callback){
+	Person.find(query)
+		.sort({name: 1})
+		.exec(callback);
+}
 module.exports.addPerson = function(person,callback){
 	Person.create(person,callback);
 }
@@ -71,7 +76,6 @@ module.exports.updatePersonById = function(id,updateField,callback){
 	  if (err) return handleError(err);
 	  return callback(null,data);
 	});
-	//Person.findById(id).exec(callback);
 }
 // module.exports.comparePassword = function(candidatePassword, hash, callback){
 // 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
