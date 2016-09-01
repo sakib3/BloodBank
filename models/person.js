@@ -77,10 +77,9 @@ module.exports.updatePersonById = function(id,updateField,callback){
 	  return callback(null,data);
 	});
 }
-// module.exports.comparePassword = function(candidatePassword, hash, callback){
-// 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-// 		console.log(candidatePassword, hash,err,isMatch);
-//     	if(err) throw err;
-//     	callback(null, isMatch);
-// 	});
-// }
+module.exports.comparePassword = function(candidatePassword, hash, callback){
+	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    	if(err) throw err;
+    	callback(null, isMatch);
+	});
+}

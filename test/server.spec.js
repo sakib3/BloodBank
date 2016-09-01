@@ -31,7 +31,8 @@ var date = moment(),
     ],
     currentLocationUpdateTimeStamp=now,
     bloodGroup="A+";
-
+var token = null,
+    expires = 0;
 var newPerson={
           name:name,email:email,phone:phone,password:password,
           address:address,country:country,nationality:nationality,
@@ -162,5 +163,28 @@ describe('BloodBank-backend rest api server', function(){
       })
   })
 
+  it('should login as a person', function(done){
+    superagent
+      .post(server_url+'/login')
+      .send({email:"john@gmail.com",password:"Whats Up"})
+      .end(function(err, res){
+        token=res.body.token
+        expires=res.body.expires
+        expect(token).not.to.be.empty
+        expect(expires).to.be.above(Date.now())
+        expect(res.status).to.eql(200)
+        done()
+      })
+  })
+
+  it('should validate token', function(done){
+    superagent
+      .post(server_url+'/api/validate')
+      .send({access_token:token})
+      .end(function(err, res){
+        expect(res.status).to.eql(200)
+        done()
+      })
+  })
 
 })

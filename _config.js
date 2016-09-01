@@ -7,11 +7,12 @@ config.mongoURI = {
 
 config.serverPORT = {
   development: '3000',
-  test: '3001'
+  test: '3000'
 };
 
 config.dropDBOnStartUp = {
 	test: true
 }
 
+config.jwtTokenSecret = 'testybear';
 module.exports = config;

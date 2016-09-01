@@ -2,8 +2,8 @@ var express = require('express'),
 	router = express.Router(),
 	mongoose = require('mongoose'),
 	passport = require('./middlewares/passport'),
-	//passport = require('./middlewares/passport');
-	config = require('./_config');
+	config = require('./_config'),
+	jwtauth = require('./middlewares/jwtauth');
 	Person = require('./models/person');
 
 // connect to Mongoose
@@ -27,6 +27,16 @@ router.get('/', function(req, res){
 	res.status(200).send({ message: 'Success' });
 });
 
+router.post('/login', function(req, res){
+	passportAuthenticateUser(req, res);
+});
+
+router.all(/^\/api\/(.)*$/,jwtauth.decodeToken);
+
+router.post('/api/validate', function(req, res){
+	res.status(200);
+	res.json(req.body.isLoggedIn);
+});
 router.post('/api/person', function(req, res){
 	var person = req.body;
 	Person.addPerson(person, function(err, data){
@@ -86,16 +96,19 @@ router.post('/api/person/id/:id', function(req, res){
 	});
 });
 
-// function passportAuthenticateUser(req, res){
-// 	passport.authenticate('local', function(err, user, info) {
-// 		if (err) { return next(err); }
-// 		console.log(user);
-// 		return;
-// 		if (!user) {
-// 			res.status(403);
-// 			return res.send({message: info.message});
-// 		}
-		
-// 	})(req, res);
-// }
+function passportAuthenticateUser(req, res){
+	passport.authenticate('local', function(err, user, info) {
+		if (err) { return next(err); }
+
+		if (!user) {
+			res.status(403);
+			return res.send({message: info.message});
+		}
+
+		jwtauth.generateToken(user,function(response_token){
+			res.status(200);
+			return res.json(response_token);
+		});
+	})(req, res);
+}
 module.exports = router;
