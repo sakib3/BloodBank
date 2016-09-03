@@ -35,8 +35,9 @@ router.all(/^\/api\/(.)*$/,jwtauth.decodeToken);
 
 router.post('/api/validate', function(req, res){
 	res.status(200);
-	res.json(req.body.isLoggedIn);
+	res.json({isLoggedIn:req.body.isLoggedIn});
 });
+
 router.post('/api/person', function(req, res){
 	var person = req.body;
 	Person.addPerson(person, function(err, data){

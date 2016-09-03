@@ -33,7 +33,7 @@ module.exports.decodeToken = function(req, res, next) {
               });
             }
             req._currentIdentifierFromToken = decoded;
-            req.body.isLoggedIn=false;
+            req.body.isLoggedIn=true;
             return next();
 
         } catch (err) {

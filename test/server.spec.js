@@ -183,6 +183,7 @@ describe('BloodBank-backend rest api server', function(){
       .send({access_token:token})
       .end(function(err, res){
         expect(res.status).to.eql(200)
+        expect(res.body.isLoggedIn).to.eql(true)
         done()
       })
   })
