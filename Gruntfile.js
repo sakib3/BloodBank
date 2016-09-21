@@ -21,6 +21,12 @@ module.exports = function(grunt) {
             node_env: 'test',
             script: 'server.js'
           }
+        },
+        preTest:{
+          options: {
+            node_env: 'test',
+            script: 'test/prepareDbForTest.js'
+          }
         }
     },
     watch: {
@@ -43,11 +49,27 @@ module.exports = function(grunt) {
         },
         src: ['test/server.spec.js']
       }
-    }
+    },
+    wait: {
+       options: {
+           delay: 5000
+       },
+       pause: {
+            options: {
+                before : function(options) {
+                    console.log('pausing %dms', options.delay);
+                },
+                after : function() {
+                    console.log('pause end');
+                }
+            }
+      }
+   }
   });
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-wait');
   grunt.registerTask('development', ['express:development','watch']);
-  grunt.registerTask('test', ['express:test','mochaTest:test']);
+  grunt.registerTask('test', ['express:preTest','wait:pause','express:test','mochaTest:test']);
 };
