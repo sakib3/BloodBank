@@ -10,14 +10,9 @@ var express = require('express'),
 mongoose.connect(config.mongoURI[process.env.NODE_ENV], function(err, res) {
   if(err){
     console.log('Error connecting to the database. ' + err);
-  } 
+  }
   else {
     console.log('Connected to Database: ' + config.mongoURI[process.env.NODE_ENV]);
-    var dropDBOnStartUp = false || config.dropDBOnStartUp[process.env.NODE_ENV];
-	if(dropDBOnStartUp){
-    	var dropDB = mongoose.connection.db.dropDatabase();
-    	dropDB ? console.log('Database dropped') : console.log('Error: Database can not be dropped');
-	}
   }
 });
 
@@ -73,11 +68,11 @@ router.get('/api/person/currentLocation', function(req, res){
 	var lat = req.query.lat;
 	var long = req.query.long;
 	var query = {
-					currentLocation : {	
-						$geoWithin: { 
-							$center: [	[lat,long], maxDistance ] 
-						} 
-					}			 
+					currentLocation : {
+						$geoWithin: {
+							$center: [	[lat,long], maxDistance ]
+						}
+					}
 	};
 	Person.getPersonByQuery(query, function(err, data){
 		if(err){
