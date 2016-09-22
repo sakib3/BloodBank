@@ -1,13 +1,13 @@
 var config = {};
 
 config.mongoURI = {
-  development: 'mongodb://localhost/bloodbank-test',
-  test: 'mongodb://localhost/bloodbank-test'
+  development: process.env.DEV_DB_URL!==undefined ?process.env.DEV_DB_URL :'mongodb://localhost/veripankki',
+  test: process.env.TEST_DB_URL!==undefined ?process.env.TEST_DB_URL :'mongodb://localhost/veripankki-test'
 };
 
 config.serverPORT = {
-  development: '3000',
-  test: '3000'
+  development: process.env.DEV_PORT!==undefined ?process.env.DEV_PORT :'3000',
+  test: process.env.TEST_PORT!==undefined ?process.env.TEST_PORT :'3000'
 };
 
 config.dropDBOnStartUp = {
