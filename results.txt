@@ -2,16 +2,16 @@
 [0m[0m
 [0m  BloodBank-backend rest api server[0m
 [2K[0G  [32m  ✓[0m[90m should get response 200[0m
-[2K[0G  [32m  ✓[0m[90m should create a person[0m[31m (376ms)[0m
+[2K[0G  [32m  ✓[0m[90m should create a person[0m[31m (337ms)[0m
 [2K[0G  [32m  ✓[0m[90m should not create a person when required fields not found[0m
 [2K[0G  [32m  ✓[0m[90m should get a person by person_id[0m
-[2K[0G  [32m  ✓[0m[90m should store a person password in hash[0m[31m (243ms)[0m
+[2K[0G  [32m  ✓[0m[90m should store a person password in hash[0m[31m (236ms)[0m
 [2K[0G  [32m  ✓[0m[90m should search person by bloodGroup[0m
 [2K[0G  [32m  ✓[0m[90m should search person by current location and maximum distance[0m
 [2K[0G  [32m  ✓[0m[90m should update a person by person_id[0m
-[2K[0G  [32m  ✓[0m[90m should login as a person[0m[31m (248ms)[0m
+[2K[0G  [32m  ✓[0m[90m should login as a person[0m[31m (245ms)[0m
 [2K[0G  [32m  ✓[0m[90m should validate token[0m
 
 
-[92m [0m[32m 10 passing[0m[90m (1s)[0m
+[92m [0m[32m 10 passing[0m[90m (945ms)[0m
 
