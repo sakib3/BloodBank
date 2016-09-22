@@ -49,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/sakib3/BloodBank/issues"
   },
-  "homepage": "https://github.com/sakib3/BloodBank#readme"
+  "homepage": "https://github.com/sakib3/BloodBank#readme",
+  "engines": {
+    "node": "4.1.1"
+  }
 }
