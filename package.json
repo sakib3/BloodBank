@@ -4,7 +4,7 @@
   "description": "To help people to find blood donor ",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
+    "start": "grunt development",
     "test": "grunt test"
   },
   "repository": {
