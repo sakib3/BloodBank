@@ -3,7 +3,7 @@ var config = {};
 config.mongoURI = {
   development: process.env.DEV_DB_URL!==undefined ?process.env.DEV_DB_URL :'mongodb://localhost:27017/veripankki',
   production: process.env.DEV_DB_URL!==undefined ?process.env.DEV_DB_URL :'mongodb://localhost:27017/veripankki',
-  test: production: process.env.TEST_DB_URL!==undefined ?process.env.TEST_DB_URL :'mongodb://localhost:27017/veripankki-test',
+  test: process.env.TEST_DB_URL!==undefined ?process.env.TEST_DB_URL :'mongodb://localhost:27017/veripankki-test'
 };
 
 config.serverPORT = {
