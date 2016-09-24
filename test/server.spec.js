@@ -5,7 +5,8 @@ var superagent = require('superagent'),
   bcrypt = require('bcrypt-nodejs'),
   SALT_WORK_FACTOR = 10,
   port = config.serverPORT[process.env.NODE_ENV],
-  server_url = 'http://localhost:'+port,
+  //server_url = 'http://localhost:'+port,
+  server_url = 'https://bbank.herokuapp.com',
   moment = require('moment');
 
 var date = moment(),
@@ -47,7 +48,7 @@ function hashPassword(password){
     var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
     var hash = bcrypt.hashSync(password, salt);
     return hash;
-    
+
 }
 
 function comparePassword(password,passwordHashed){
@@ -141,7 +142,7 @@ describe('BloodBank-backend rest api server', function(){
     var lat=20.6
     var long=-77.043934
     var maxDistance=2035.189//km
-    
+
     superagent
       .get(server_url+'/api/person/currentLocation?'+'maxDistance='+maxDistance+'&lat='+lat+'&long='+long)
       .end(function(err, res){
