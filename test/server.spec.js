@@ -5,8 +5,7 @@ var superagent = require('superagent'),
   bcrypt = require('bcrypt-nodejs'),
   SALT_WORK_FACTOR = 10,
   port = config.serverPORT[process.env.NODE_ENV],
-  //server_url = 'http://localhost:'+port,
-  server_url = 'https://bbank.herokuapp.com',
+  server_url = 'http://localhost:'+port,
   moment = require('moment');
 
 var date = moment(),
