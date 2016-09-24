@@ -27,7 +27,8 @@ var mongoose = require('mongoose'),
 					enum: ['A+','A-','B+','B-','O+','O-','AB+','AB-'],
 					required: true
 		},
-		registrationDate:{ type: Date, default: Date.now }
+		registrationDate:{ type: Date, default: Date.now },
+		aboutMe:String
 	});
 
 //Before saving Employee perform additional task like hash password
@@ -50,7 +51,7 @@ personSchema.pre('save', function(next) {
         });
     });
 
-    
+
 });
 
 var Person = module.exports = mongoose.model('Person', personSchema, 'person');

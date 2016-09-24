@@ -30,6 +30,7 @@ var date = moment(),
       -77.043934
     ],
     currentLocationUpdateTimeStamp=now,
+    aboutMe="I am a very energetic guy...",
     bloodGroup="A+";
 var token = null,
     expires = 0;
@@ -39,7 +40,7 @@ var newPerson={
           passportNumber:passportNumber,votarId:votarId,gender:gender,
           occupation:occupation,maritalStatus:maritalStatus,
           physicalCondition:physicalCondition,dateOfBirth: dateOfBirth,
-          currentLocation:currentLocation,
+          currentLocation:currentLocation,aboutMe:aboutMe,
           currentLocationUpdateTimeStamp:currentLocationUpdateTimeStamp,bloodGroup:bloodGroup
 }
 
@@ -72,6 +73,7 @@ describe('BloodBank-backend rest api server', function(){
       .end(function(err, res){
         newPerson.id=res.body._id
         expect(res.body.name).to.eql(newPerson.name)
+        expect(res.body.aboutMe).to.eql(newPerson.aboutMe)
         expect(res.status).to.eql(200)
         done()
       })
