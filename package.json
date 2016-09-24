@@ -15,6 +15,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "*",
     "connect-flash": "^0.1.1",
+    "expect.js": "0.3.1",
     "express": "*",
     "express-session": "^1.13.0",
     "grunt": "1.0.1",
@@ -25,17 +26,16 @@
     "grunt-wait": "0.1.0",
     "jsonwebtoken": "^7.1.6",
     "jwt-simple": "^0.5.0",
+    "mocha": "3.0.2",
     "moment": "^2.14.1",
     "mongoose": "*",
     "mongoskin": "^2.1.0",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "superagent": "2.3.0"
   },
   "devDependencies": {
-    "expect.js": "^0.3.1",
-    "grunt-nodemon": "~0.3.0",
-    "mocha": "^2.5.3",
-    "superagent": "^2.1.0"
+    "grunt-nodemon": "~0.3.0"
   },
   "keywords": [
     "Blood",
