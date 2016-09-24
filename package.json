@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "grunt development",
-    "test": "grunt test"
+    "prestart": "grunt test"
   },
   "repository": {
     "type": "git",
