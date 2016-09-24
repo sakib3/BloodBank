@@ -8,6 +8,7 @@ var express = require('express'),
 
 // connect to Mongoose
 mongoose.connect(config.mongoURI[process.env.NODE_ENV], function(err, res) {
+	console.log('Database url -> ' + config.mongoURI[process.env.NODE_ENV]);
   if(err){
     console.log('Error connecting to the database. ' + err);
   }
