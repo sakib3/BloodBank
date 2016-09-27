@@ -31,7 +31,9 @@ var date = moment(),
     ],
     currentLocationUpdateTimeStamp=now,
     aboutMe="I am a very energetic guy...",
-    bloodGroup="A+";
+    bloodGroup="A+",
+    totalDonation=7,
+    lastDonation=date.format('2016-01-01','YYYY-MM-DD');
 var token = null,
     expires = 0;
 var newPerson={
@@ -41,7 +43,8 @@ var newPerson={
           occupation:occupation,maritalStatus:maritalStatus,
           physicalCondition:physicalCondition,dateOfBirth: dateOfBirth,
           currentLocation:currentLocation,aboutMe:aboutMe,
-          currentLocationUpdateTimeStamp:currentLocationUpdateTimeStamp,bloodGroup:bloodGroup
+          currentLocationUpdateTimeStamp:currentLocationUpdateTimeStamp,bloodGroup:bloodGroup,
+          totalDonation:totalDonation,lastDonation:lastDonation
 }
 
 function hashPassword(password){
@@ -74,6 +77,8 @@ describe('BloodBank-backend rest api server', function(){
         newPerson.id=res.body._id
         expect(res.body.name).to.eql(newPerson.name)
         expect(res.body.aboutMe).to.eql(newPerson.aboutMe)
+        expect(res.body.totalDonation).to.eql(newPerson.totalDonation)
+        expect(moment(res.body.lastDonation).format('YYYY-MM-DD')).to.eql(newPerson.lastDonation)
         expect(res.status).to.eql(200)
         done()
       })

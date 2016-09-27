@@ -28,7 +28,9 @@ var mongoose = require('mongoose'),
 					required: true
 		},
 		registrationDate:{ type: Date, default: Date.now },
-		aboutMe:String
+		aboutMe:String,
+		totalDonation:Number,
+		lastDonation:Date
 	});
 
 //Before saving Employee perform additional task like hash password
